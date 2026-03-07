@@ -13,7 +13,7 @@ export default function Navbar() {
     { name: 'About',          href: '#about' },
     { name: 'Why Choose Us',  href: '#why-choose-us' },
     { name: 'Programs',       href: '#programs' },
-    { name: 'Experience',     href: '#experience' },
+    { name: 'Experience',     href: '#learning-experience' }, // Fixed href here
     { name: 'Join',           href: '#who-can-join' },
     { name: 'Tools',          href: '#tools' },
   ];
