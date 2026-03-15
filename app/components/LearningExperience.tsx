@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 
 const css = `
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -44,9 +44,9 @@ const css = `
 
 /* ── HEADER ───────────────────────────────────────── */
 .le-header {
-  text-align: center;
+  text-align: left; /* Changed to left alignment for desktop */
   max-width: 640px;
-  margin: 0 auto 80px;
+  margin: 0 0 80px 0;
 }
 .le-eyebrow {
   font-size: 13px; 
@@ -58,13 +58,17 @@ const css = `
   display: block;
 }
 .le-headline {
-  font-family: 'Fraunces', serif;
   font-size: clamp(32px, 4vw, 48px);
-  font-weight: 400;
+  font-weight: 800; /* Bolder weight for sans-serif */
   line-height: 1.1;
   margin-bottom: 24px;
+  letter-spacing: -0.03em;
 }
-.le-headline em { font-style: italic; color: var(--brand); }
+.le-headline em { 
+  font-style: italic; 
+  color: var(--brand); 
+  font-weight: 700;
+}
 .le-subhead {
   font-size: 18px; 
   color: var(--text-muted); 
@@ -115,9 +119,8 @@ const css = `
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Fraunces', serif;
   font-size: 24px;
-  font-weight: 600;
+  font-weight: 800; /* Bolder sans-serif numbering */
   flex-shrink: 0;
   box-shadow: 0 0 0 8px var(--bg-color); /* Creates a cutout effect over the line */
 }
@@ -128,9 +131,10 @@ const css = `
 }
 .le-step-title {
   font-size: 22px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-main);
   margin-bottom: 12px;
+  letter-spacing: -0.01em;
 }
 .le-step-desc {
   font-size: 16px;
@@ -139,7 +143,7 @@ const css = `
 }
 .le-step-desc strong {
   color: var(--text-main);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 /* ── INFINITE MARQUEE ─────────────────────────────── */
@@ -193,14 +197,14 @@ const css = `
 }
 
 .le-marquee-item {
-  font-family: 'Fraunces', serif;
   font-size: 28px;
-  font-weight: 400;
+  font-weight: 700; /* Bolder sans-serif typography */
   color: #9CA3AF; /* Light gray */
   display: flex;
   align-items: center;
   gap: 16px;
   white-space: nowrap;
+  letter-spacing: -0.02em;
 }
 .le-marquee-dot {
   color: var(--brand);
@@ -215,6 +219,7 @@ const css = `
 /* ── RESPONSIVE ───────────────────────────────────── */
 @media (max-width: 768px) {
   .le-section { padding: 80px 0 0; }
+  .le-header { text-align: center; margin: 0 auto 64px; } /* Centered on mobile */
   .le-marquee-section { margin-top: 80px; padding: 32px 0; }
   .le-step { gap: 24px; padding-bottom: 48px; }
   .le-step-num { width: 48px; height: 48px; font-size: 20px; }

@@ -1,7 +1,7 @@
 "use client";
 
 const css = `
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -45,6 +45,8 @@ const css = `
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: flex-start; /* Ensures everything aligns nicely to the left */
+  text-align: left;
 }
 
 /* Badge */
@@ -66,16 +68,16 @@ const css = `
   font-weight: 600;
   color: var(--brand);
   letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 /* Headline */
 .pm-headline {
-  font-family: 'Fraunces', serif;
   font-size: clamp(40px, 4.5vw, 64px);
-  font-weight: 400;
+  font-weight: 800; /* Bolder to compensate for the loss of the serif font */
   color: var(--text-main);
   line-height: 1.1;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   margin-bottom: 24px;
 }
 .pm-headline span {
@@ -85,7 +87,10 @@ const css = `
 .pm-hl-1 { animation: fadeUp 0.8s ease 0.1s forwards; }
 .pm-hl-2 { animation: fadeUp 0.8s ease 0.2s forwards; }
 .pm-hl-3 { animation: fadeUp 0.8s ease 0.3s forwards; }
-.pm-hl-brand { color: var(--brand); font-weight: 600; }
+.pm-hl-brand { 
+  color: var(--brand); 
+  display: inline-block !important; /* Keep on same line as 'Are' */
+}
 
 /* Description */
 .pm-desc {
@@ -94,6 +99,7 @@ const css = `
   line-height: 1.6;
   max-width: 540px;
   margin-bottom: 40px;
+  font-weight: 400;
   opacity: 0; 
   animation: fadeUp 0.8s ease 0.4s forwards;
 }
@@ -111,7 +117,7 @@ const css = `
   background: var(--brand); 
   color: #fff;
   font-size: 15px; 
-  font-weight: 500;
+  font-weight: 600;
   border-radius: 6px; 
   text-decoration: none; 
   transition: background 0.3s ease;
@@ -124,7 +130,7 @@ const css = `
   background: transparent; 
   color: var(--text-main);
   font-size: 15px; 
-  font-weight: 500;
+  font-weight: 600;
   border-radius: 6px; 
   text-decoration: none; 
   border: 1px solid var(--border);
@@ -141,17 +147,19 @@ const css = `
   margin-top: 56px; 
   padding-top: 40px;
   border-top: 1px solid var(--border);
+  width: 100%;
   opacity: 0; 
   animation: fadeUp 0.8s ease 0.6s forwards;
 }
 .pm-stat-num {
-  font-family: 'Fraunces', serif;
-  font-size: 32px; 
+  font-size: 36px; 
+  font-weight: 700;
   color: var(--text-main); 
   margin-bottom: 4px;
+  letter-spacing: -0.02em;
 }
 .pm-stat-lbl { 
-  font-size: 13px; 
+  font-size: 14px; 
   color: var(--text-muted); 
   font-weight: 500; 
 }
@@ -178,7 +186,7 @@ const css = `
   width: 100%;
   height: 100%;
   object-fit: cover;
-  background: #E5E7EB; /* Fallback color */
+  background: #E5E7EB;
 }
 
 /* Floating Clean Card */
@@ -195,7 +203,7 @@ const css = `
 }
 .pm-card-title {
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-main);
   margin-bottom: 16px;
 }
@@ -214,6 +222,7 @@ const css = `
 .pm-vision {
   background: var(--accent);
   padding: 80px 40px;
+  font-family: 'Inter', sans-serif;
 }
 .pm-vision-inner {
   max-width: 1200px; 
@@ -224,15 +233,16 @@ const css = `
   align-items: center;
 }
 .pm-vision-title {
-  font-family: 'Fraunces', serif;
   font-size: clamp(28px, 3vw, 40px); 
+  font-weight: 700;
   color: #FFFFFF; 
   line-height: 1.2;
+  letter-spacing: -0.02em;
 }
 .pm-vision-title em { 
   font-style: italic; 
   color: #94A3B8; 
-  font-weight: 300; 
+  font-weight: 400; 
 }
 .pm-vision-body {
   border-left: 1px solid rgba(255,255,255,0.1);
@@ -244,7 +254,7 @@ const css = `
   line-height: 1.7; 
   margin-bottom: 16px;
 }
-.pm-vision-p strong { color: #FFFFFF; font-weight: 500; }
+.pm-vision-p strong { color: #FFFFFF; font-weight: 600; }
 .pm-vision-p:last-child { margin-bottom: 0; }
 
 /* ─── RESPONSIVE ─────────────────────────────────────── */
@@ -254,7 +264,10 @@ const css = `
     text-align: center;
     padding: 80px 24px;
   }
-  .pm-left { align-items: center; }
+  .pm-left { 
+    align-items: center; 
+    text-align: center; 
+  }
   .pm-desc { margin: 0 auto 40px; }
   .pm-ctas, .pm-stats { justify-content: center; }
   .pm-float-card { left: 50%; transform: translateX(-50%); bottom: -30px; }
@@ -317,7 +330,6 @@ export default function Hero() {
           {/* RIGHT CONTENT (Simple & Clean) */}
           <div className="pm-right">
             <div className="pm-image-wrapper">
-              {/* Replace the src below with an actual high-quality image of students, a campus, or a modern office space */}
               <img 
                 src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800" 
                 alt="Students collaborating" 

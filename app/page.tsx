@@ -8,6 +8,7 @@ import WhyChooseUs from "./components/WhyChooseUs";
 import ToolsAndCTA from "./components/ToolsAndCTA";
 import FAQ from "./components/FAQ";
 import Footer from "./components/Footer";
+import FloatingContact from "./components/FloatingContact"; // Import the new component
 
 export default function Home() {
   return (
@@ -27,6 +28,9 @@ export default function Home() {
       <ToolsAndCTA />
       <FAQ />
       <Footer />
+      
+      {/* Add the floating component here */}
+      <FloatingContact />
     </main>
   );
 }

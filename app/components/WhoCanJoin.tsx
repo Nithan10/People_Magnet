@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 
 const css = `
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -43,9 +43,9 @@ const css = `
 
 /* ── HEADER ───────────────────────────────────────── */
 .wj-header {
-  text-align: center;
-  max-width: 640px;
-  margin: 0 auto 64px;
+  text-align: left; /* Aligned left for consistency */
+  max-width: 800px;
+  margin: 0 0 64px 0;
 }
 .wj-eyebrow {
   font-size: 13px; 
@@ -57,13 +57,17 @@ const css = `
   display: block;
 }
 .wj-headline {
-  font-family: 'Fraunces', serif;
   font-size: clamp(32px, 4vw, 48px);
-  font-weight: 400;
+  font-weight: 800; /* Bolder weight for sans-serif */
   line-height: 1.1;
   margin-bottom: 24px;
+  letter-spacing: -0.03em;
 }
-.wj-headline em { font-style: italic; color: var(--brand); }
+.wj-headline em { 
+  font-style: italic; 
+  color: var(--brand); 
+  font-weight: 700;
+}
 
 /* ── GRID & CARDS ─────────────────────────────────── */
 .wj-grid {
@@ -77,11 +81,11 @@ const css = `
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 40px 32px;
-  text-align: center;
+  text-align: left; /* Changed from center to left */
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start; /* Aligns contents to the left */
 }
 .wj-card:hover {
   transform: translateY(-4px);
@@ -100,21 +104,22 @@ const css = `
   margin-bottom: 20px;
 }
 .wj-card-title {
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 700;
   color: var(--text-main);
-  margin-bottom: 8px;
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
 }
 .wj-card-desc {
   font-size: 15px;
   color: var(--text-muted);
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 /* ── BOTTOM BANNER ────────────────────────────────── */
 .wj-footer {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start; /* Aligned left to match content */
 }
 .wj-badge {
   display: inline-flex;
@@ -125,7 +130,7 @@ const css = `
   padding: 16px 32px;
   border-radius: 8px;
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--brand);
 }
 .wj-badge-icon {
@@ -143,10 +148,13 @@ const css = `
 @media (max-width: 1024px) {
   .wj-grid { grid-template-columns: repeat(2, 1fr); }
 }
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .wj-section { padding: 80px 0; }
+  .wj-header { text-align: center; margin: 0 auto 48px; } /* Center aligned on mobile */
   .wj-grid { grid-template-columns: 1fr; }
-  .wj-badge { width: 100%; justify-content: center; text-align: center; flex-direction: column; gap: 8px; padding: 20px; }
+  .wj-card { align-items: center; text-align: center; } /* Center cards on mobile */
+  .wj-footer { justify-content: center; } /* Center badge on mobile */
+  .wj-badge { width: 100%; justify-content: center; text-align: center; flex-direction: column; gap: 12px; padding: 20px; }
 }
 `;
 

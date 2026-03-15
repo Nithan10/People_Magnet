@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 
 const css = `
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -43,9 +43,9 @@ const css = `
 
 /* ── HEADER ───────────────────────────────────────── */
 .pg-header {
-  text-align: center;
-  max-width: 640px;
-  margin: 0 auto 72px;
+  text-align: left; /* Aligned to left for consistency */
+  max-width: 800px;
+  margin: 0 0 72px 0;
 }
 .pg-eyebrow {
   font-size: 13px; 
@@ -57,13 +57,17 @@ const css = `
   display: block;
 }
 .pg-headline {
-  font-family: 'Fraunces', serif;
   font-size: clamp(32px, 4vw, 48px);
-  font-weight: 400;
+  font-weight: 800; /* Bolder weight for sans-serif */
   line-height: 1.1;
   margin-bottom: 24px;
+  letter-spacing: -0.03em;
 }
-.pg-headline em { font-style: italic; color: var(--brand); }
+.pg-headline em { 
+  font-style: italic; 
+  color: var(--brand); 
+  font-weight: 700;
+}
 .pg-subhead {
   font-size: 18px; 
   color: var(--text-muted); 
@@ -85,6 +89,7 @@ const css = `
   display: flex;
   flex-direction: column;
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  text-align: left;
 }
 .pg-card:hover {
   transform: translateY(-4px);
@@ -105,12 +110,12 @@ const css = `
   margin-bottom: 24px;
 }
 .pg-card-title {
-  font-family: 'Fraunces', serif;
   font-size: 24px;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.2;
   margin-bottom: 12px;
   color: var(--text-main);
+  letter-spacing: -0.01em;
 }
 .pg-card-desc {
   font-size: 15px;
@@ -177,7 +182,7 @@ const css = `
   border: 1px solid var(--border);
   color: var(--text-main);
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600;
   padding: 6px 12px;
   border-radius: 4px;
 }
@@ -192,7 +197,7 @@ const css = `
   border: 1px solid var(--border);
   border-radius: 6px;
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -208,6 +213,7 @@ const css = `
 }
 @media (max-width: 768px) {
   .pg-section { padding: 80px 0; }
+  .pg-header { text-align: center; margin: 0 auto 64px; } /* Center aligned on mobile */
   .pg-grid { grid-template-columns: 1fr; }
 }
 `;
@@ -291,7 +297,7 @@ const programs = [
       "Customer Psychology"
     ],
     tagsLabel: "Perfect For",
-    tags: ["Founders", "Marketers", "Agency Owners", "Product Managers"] // Added inferred tags for layout consistency
+    tags: ["Founders", "Marketers", "Agency Owners", "Product Managers"] 
   }
 ];
 

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 
 const css = `
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -43,9 +43,9 @@ const css = `
 
 /* ── HEADER ───────────────────────────────────────── */
 .wc-header {
-  text-align: center;
-  max-width: 640px;
-  margin: 0 auto 72px;
+  text-align: left; /* Left alignment for consistency */
+  max-width: 800px;
+  margin: 0 0 72px 0;
 }
 .wc-eyebrow {
   font-size: 13px; 
@@ -57,13 +57,13 @@ const css = `
   display: block;
 }
 .wc-headline {
-  font-family: 'Fraunces', serif;
   font-size: clamp(32px, 4vw, 48px);
-  font-weight: 400;
+  font-weight: 800; /* Bolder sans-serif typography */
   line-height: 1.1;
   margin-bottom: 24px;
+  letter-spacing: -0.03em;
 }
-.wc-headline em { font-style: italic; color: var(--brand); }
+.wc-headline em { font-style: italic; color: var(--brand); font-weight: 700; }
 .wc-subhead {
   font-size: 18px; 
   color: var(--text-muted); 
@@ -86,6 +86,7 @@ const css = `
   cursor: pointer;
   display: flex;
   flex-direction: column;
+  text-align: left;
 }
 .wc-card:hover {
   box-shadow: 0 12px 24px rgba(0,0,0,0.04);
@@ -104,10 +105,10 @@ const css = `
   margin-bottom: 24px;
 }
 .wc-card-title {
-  font-family: 'Fraunces', serif;
   font-size: 20px; 
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 12px;
+  letter-spacing: -0.01em;
 }
 .wc-card-body {
   font-size: 15px; 
@@ -115,7 +116,7 @@ const css = `
   line-height: 1.6;
   flex-grow: 1;
 }
-.wc-card-body strong { color: var(--text-main); font-weight: 500; }
+.wc-card-body strong { color: var(--text-main); font-weight: 600; }
 .wc-card-link {
   margin-top: 24px;
   font-size: 14px;
@@ -136,15 +137,16 @@ const css = `
   justify-content: space-between;
   gap: 40px;
   color: #FFFFFF;
+  text-align: left;
 }
 .wc-cta-title {
-  font-family: 'Fraunces', serif;
   font-size: clamp(28px, 3vw, 36px); 
-  font-weight: 400;
+  font-weight: 800;
   line-height: 1.2; 
   margin-bottom: 16px;
+  letter-spacing: -0.02em;
 }
-.wc-cta-title em { font-style: italic; color: #94A3B8; }
+.wc-cta-title em { font-style: italic; color: #60A5FA; font-weight: 700; }
 .wc-cta-sub {
   font-size: 16px; 
   color: #CBD5E1;
@@ -159,7 +161,7 @@ const css = `
 .wc-btn-primary, .wc-btn-secondary {
   padding: 14px 28px;
   font-size: 15px; 
-  font-weight: 500;
+  font-weight: 600;
   border-radius: 6px; 
   cursor: pointer;
   transition: all 0.3s ease;
@@ -177,11 +179,11 @@ const css = `
 }
 .wc-btn-secondary:hover { border-color: white; background: rgba(255,255,255,0.05); }
 
-/* ── POPUP MODAL ──────────────────────────────────── */
+/* ── POPUP MODAL & FORM ───────────────────────────── */
 .wc-overlay {
   position: fixed; inset: 0; z-index: 9999;
-  background: rgba(17, 24, 39, 0.7);
-  backdrop-filter: blur(4px);
+  background: rgba(17, 24, 39, 0.6);
+  backdrop-filter: blur(8px);
   display: flex; align-items: center; justify-content: center;
   padding: 24px;
   opacity: 0;
@@ -189,50 +191,83 @@ const css = `
 }
 .wc-modal {
   background: var(--surface);
-  border-radius: 12px;
-  padding: 48px;
-  max-width: 480px; 
+  border-radius: 24px;
+  padding: 40px;
+  max-width: 440px; 
   width: 100%;
   position: relative;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 24px 48px rgba(0,0,0,0.15);
   transform: translateY(20px);
   animation: slideUpModal 0.4s ease forwards;
+  text-align: left;
 }
 .wc-modal-close {
-  position: absolute; top: 24px; right: 24px;
-  background: transparent; border: none; cursor: pointer;
-  font-size: 20px; color: var(--text-muted);
-  transition: color 0.2s ease;
+  position: absolute; top: 20px; right: 20px;
+  background: #F1F5F9; border: none; cursor: pointer;
+  width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; color: var(--text-muted);
+  transition: color 0.2s ease, background 0.2s ease;
 }
-.wc-modal-close:hover { color: var(--text-main); }
+.wc-modal-close:hover { color: var(--text-main); background: #E2E8F0; }
 .wc-modal-title {
-  font-family: 'Fraunces', serif;
-  font-size: 28px; 
-  margin-bottom: 12px;
+  font-size: 24px; 
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: var(--text-main);
+  letter-spacing: -0.02em;
 }
 .wc-modal-sub {
   font-size: 15px; color: var(--text-muted);
-  line-height: 1.6; margin-bottom: 32px;
+  line-height: 1.5; margin-bottom: 24px;
 }
-.wc-modal-btn {
-  width: 100%;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 16px 20px;
-  border-radius: 8px; cursor: pointer;
-  font-size: 15px; font-weight: 500;
+
+/* Form Styles */
+.wc-form-group {
   margin-bottom: 16px;
-  transition: all 0.2s ease;
 }
-.wc-modal-btn.dark { background: var(--accent); color: white; border: 1px solid var(--accent); }
-.wc-modal-btn.dark:hover { background: #1E293B; }
-.wc-modal-btn.light { background: var(--surface); color: var(--text-main); border: 1px solid var(--border); }
-.wc-modal-btn.light:hover { border-color: var(--text-muted); }
-.wc-modal-note { text-align: center; font-size: 13px; color: var(--text-muted); margin-top: 24px; }
+.wc-label {
+  display: block; font-size: 13px; font-weight: 600; 
+  color: var(--text-main); margin-bottom: 6px;
+}
+.wc-input {
+  width: 100%; padding: 12px 16px; border-radius: 12px;
+  border: 1px solid #E2E8F0; font-size: 15px; outline: none;
+  font-family: 'Inter', sans-serif;
+  transition: border-color 0.2s;
+  background: var(--surface);
+}
+.wc-input:focus { border-color: var(--brand); }
+.wc-submit-btn {
+  margin-top: 8px; width: 100%; padding: 14px;
+  background: var(--brand); color: white; font-size: 15px;
+  font-weight: 700; border-radius: 12px; border: none;
+  cursor: pointer; transition: background 0.2s;
+  box-shadow: 0 4px 12px rgba(37,99,235,0.2);
+}
+.wc-submit-btn:hover { background: #1D4ED8; }
+
+/* Success State Styles */
+.wc-success-box {
+  text-align: center; padding: 24px 0;
+}
+.wc-success-icon {
+  width: 64px; height: 64px; background: #DEF7EC; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px; color: #046C4E;
+}
+.wc-close-btn {
+  padding: 12px 24px; background: #F1F5F9; color: var(--text-main);
+  font-size: 15px; font-weight: 700; border-radius: 100px;
+  border: none; cursor: pointer; transition: background 0.2s;
+}
+.wc-close-btn:hover { background: #E2E8F0; }
 
 /* ── RESPONSIVE ───────────────────────────────────── */
 @media (max-width: 1024px) {
   .wc-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
   .wc-cta-banner { flex-direction: column; align-items: flex-start; padding: 48px 32px; }
+  .wc-header { text-align: center; margin: 0 auto 48px; } /* Center on mobile for flow */
 }
 @media (max-width: 640px) {
   .wc-section { padding: 80px 0; }
@@ -246,7 +281,7 @@ const css = `
 @keyframes slideUpModal { to { transform: translateY(0); } }
 `;
 
-/* ── Minimal Icons (Replacing Emojis) ─────────────── */
+/* ── Minimal Icons ─────────────── */
 const icons = {
   curriculum: <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>,
   training: <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>,
@@ -273,34 +308,80 @@ function useReveal(threshold = 0.1) {
   return { ref, visible };
 }
 
-/* ─── Popup Modal ───────────────────────────────────── */
-function Modal({ onClose }: { onClose: () => void }) {
+/* ─── Popup Form Modal ───────────────────────────────────── */
+function FormModal({ onClose }: { onClose: () => void }) {
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
   useEffect(() => {
     const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, [onClose]);
 
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Simulate API Call
+    setIsSubmitted(true);
+  };
+
   return (
     <div className="wc-overlay" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
       <div className="wc-modal">
-        <button className="wc-modal-close" onClick={onClose}>✕</button>
-        <h3 className="wc-modal-title">Take the Next Step</h3>
-        <p className="wc-modal-sub">
-          Ready to transform your career? Choose how you'd like to get started with <strong>PeopleMagnet School of Business</strong>.
-        </p>
-
-        <button className="wc-modal-btn dark">
-          <span>Enroll in the Program</span>
-          <span>→</span>
+        <button className="wc-modal-close" onClick={onClose}>
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
         </button>
 
-        <button className="wc-modal-btn light">
-          <span>Download the Brochure</span>
-          <span>↓</span>
-        </button>
+        {!isSubmitted ? (
+          <div>
+            <h2 className="wc-modal-title">Start Your Journey</h2>
+            <p className="wc-modal-sub">
+              Fill out the form below and our admissions team will get in touch with you shortly.
+            </p>
 
-        <p className="wc-modal-note">No commitment required · Free consultation available</p>
+            <form onSubmit={handleFormSubmit}>
+              <div className="wc-form-group">
+                <label className="wc-label">Full Name</label>
+                <input type="text" className="wc-input" required placeholder="John Doe" />
+              </div>
+              
+              <div className="wc-form-group">
+                <label className="wc-label">Email Address</label>
+                <input type="email" className="wc-input" required placeholder="john@example.com" />
+              </div>
+
+              <div className="wc-form-group">
+                <label className="wc-label">Program of Interest</label>
+                <select className="wc-input" required>
+                  <option value="">Select a program...</option>
+                  <option value="marketing">Digital Marketing</option>
+                  <option value="leadership">Business Leadership</option>
+                  <option value="creative">Creative Strategy</option>
+                </select>
+              </div>
+
+              <button type="submit" className="wc-submit-btn">
+                Submit Enquiry
+              </button>
+            </form>
+          </div>
+        ) : (
+          <div className="wc-success-box">
+            <div className="wc-success-icon">
+              <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <h2 className="wc-modal-title">Application Received!</h2>
+            <p className="wc-modal-sub" style={{ marginBottom: '24px' }}>
+              Thank you for your interest. Our admissions team will get back to you soon.
+            </p>
+            <button onClick={onClose} className="wc-close-btn">
+              Close Window
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -356,7 +437,7 @@ export default function WhyChooseUs() {
     <>
       <style>{css}</style>
       
-      {modalOpen && <Modal onClose={() => setModalOpen(false)} />}
+      {modalOpen && <FormModal onClose={() => setModalOpen(false)} />}
 
       <section className="wc-section" id="why-choose-us">
         <div className="wc-container">

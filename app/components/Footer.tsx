@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 
 const css = `
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -51,15 +51,16 @@ const css = `
 
 /* Column 1: Brand */
 .ft-brand-title {
-  font-family: 'Fraunces', serif;
   font-size: 24px;
-  font-weight: 600;
+  font-weight: 800; /* Bolder sans-serif typography */
   margin-bottom: 16px;
   line-height: 1.2;
+  letter-spacing: -0.02em;
 }
 .ft-brand-title em {
   font-style: italic;
   color: #60A5FA;
+  font-weight: 700;
 }
 .ft-tagline {
   font-size: 15px;

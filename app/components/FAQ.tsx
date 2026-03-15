@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 
 const css = `
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -41,8 +41,8 @@ const css = `
 
 /* ── HEADER ───────────────────────────────────────── */
 .faq-header {
-  text-align: center;
-  margin-bottom: 56px;
+  text-align: left; /* Left-aligned for desktop to match other sections */
+  margin: 0 0 56px 0;
 }
 .faq-eyebrow {
   font-size: 13px; 
@@ -54,12 +54,16 @@ const css = `
   display: block;
 }
 .faq-headline {
-  font-family: 'Fraunces', serif;
   font-size: clamp(32px, 4vw, 48px);
-  font-weight: 400;
+  font-weight: 800; /* Bolder sans-serif typography */
   line-height: 1.1;
+  letter-spacing: -0.03em;
 }
-.faq-headline em { font-style: italic; color: var(--brand); }
+.faq-headline em { 
+  font-style: italic; 
+  color: var(--brand); 
+  font-weight: 700;
+}
 
 /* ── ACCORDION LIST ───────────────────────────────── */
 .faq-list {
@@ -142,6 +146,7 @@ const css = `
 @media (max-width: 640px) {
   .faq-section { padding: 80px 0; }
   .faq-container { padding: 0 24px; }
+  .faq-header { text-align: center; margin: 0 auto 48px; } /* Center header on mobile */
   .faq-question { padding: 20px 24px; font-size: 16px; }
   .faq-answer-text { padding: 0 24px 20px; }
 }

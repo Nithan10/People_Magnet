@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 
 const css = `
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -41,8 +41,9 @@ const css = `
   padding: 0 40px;
 }
 .tools-header {
-  text-align: center;
-  margin-bottom: 64px;
+  text-align: left; /* Aligned left for consistency */
+  max-width: 800px;
+  margin: 0 0 64px 0;
 }
 .tools-eyebrow {
   font-size: 13px; 
@@ -54,11 +55,11 @@ const css = `
   display: block;
 }
 .tools-headline {
-  font-family: 'Fraunces', serif;
   font-size: clamp(32px, 4vw, 48px);
-  font-weight: 400;
+  font-weight: 800; /* Bolder weight for sans-serif */
   line-height: 1.1;
   margin-bottom: 16px;
+  letter-spacing: -0.03em;
 }
 .tools-subhead {
   font-size: 18px; 
@@ -116,8 +117,8 @@ const css = `
 .cta-banner {
   background: var(--accent);
   border-radius: 24px;
-  padding: 80px 40px;
-  text-align: center;
+  padding: 80px 64px;
+  text-align: left; /* Left-aligned content */
   color: #FFFFFF;
   position: relative;
   overflow: hidden;
@@ -127,45 +128,45 @@ const css = `
 .cta-banner::before {
   content: '';
   position: absolute;
-  top: -50%; left: 50%;
+  top: -50%; left: 0%; /* Adjusted glow position */
   width: 800px; height: 800px;
   background: radial-gradient(circle, rgba(37, 99, 235, 0.15) 0%, transparent 70%);
-  transform: translateX(-50%);
   pointer-events: none;
 }
 
 .cta-headline {
-  font-family: 'Fraunces', serif;
   font-size: clamp(36px, 5vw, 56px);
-  font-weight: 400;
+  font-weight: 800; /* Bolder sans-serif typography */
   line-height: 1.1;
   margin-bottom: 24px;
+  letter-spacing: -0.03em;
   position: relative;
   z-index: 1;
 }
 .cta-headline em {
   font-style: italic;
   color: #60A5FA;
+  font-weight: 700;
 }
 .cta-subhead {
   font-size: 18px;
   color: #CBD5E1;
   line-height: 1.6;
   max-width: 600px;
-  margin: 0 auto 48px;
+  margin: 0 0 48px 0; /* Removed auto margins for left alignment */
   position: relative;
   z-index: 1;
 }
 .cta-subhead strong {
   color: #FFFFFF;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 /* Buttons */
 .cta-actions {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start; /* Align buttons to the left */
   gap: 16px;
   flex-wrap: wrap;
   position: relative;
@@ -174,7 +175,7 @@ const css = `
 .cta-btn {
   padding: 16px 32px;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -212,9 +213,100 @@ const css = `
   color: #FFFFFF;
 }
 
+/* ── POPUP MODAL & FORM ───────────────────────────── */
+.cta-overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(17, 24, 39, 0.6);
+  backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  animation: fadeIn 0.3s ease forwards;
+}
+.cta-modal {
+  background: var(--surface);
+  border-radius: 24px;
+  padding: 40px;
+  max-width: 440px; 
+  width: 100%;
+  position: relative;
+  box-shadow: 0 24px 48px rgba(0,0,0,0.15);
+  transform: translateY(20px);
+  animation: slideUpModal 0.4s ease forwards;
+  text-align: left;
+}
+.cta-modal-close {
+  position: absolute; top: 20px; right: 20px;
+  background: #F1F5F9; border: none; cursor: pointer;
+  width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; color: var(--text-muted);
+  transition: color 0.2s ease, background 0.2s ease;
+}
+.cta-modal-close:hover { color: var(--text-main); background: #E2E8F0; }
+.cta-modal-title {
+  font-size: 24px; 
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: var(--text-main);
+  letter-spacing: -0.02em;
+}
+.cta-modal-sub {
+  font-size: 15px; color: var(--text-muted);
+  line-height: 1.5; margin-bottom: 24px;
+}
+
+/* Form Styles */
+.cta-form-group {
+  margin-bottom: 16px;
+}
+.cta-label {
+  display: block; font-size: 13px; font-weight: 600; 
+  color: var(--text-main); margin-bottom: 6px;
+}
+.cta-input {
+  width: 100%; padding: 12px 16px; border-radius: 12px;
+  border: 1px solid #E2E8F0; font-size: 15px; outline: none;
+  font-family: 'Inter', sans-serif;
+  transition: border-color 0.2s;
+  background: var(--surface);
+  color: var(--text-main);
+}
+.cta-input:focus { border-color: var(--brand); }
+.cta-submit-btn {
+  margin-top: 8px; width: 100%; padding: 14px;
+  background: var(--brand); color: white; font-size: 15px;
+  font-weight: 700; border-radius: 12px; border: none;
+  cursor: pointer; transition: background 0.2s;
+  box-shadow: 0 4px 12px rgba(37,99,235,0.2);
+}
+.cta-submit-btn:hover { background: #1D4ED8; }
+
+/* Success State Styles */
+.cta-success-box {
+  text-align: center; padding: 24px 0;
+}
+.cta-success-icon {
+  width: 64px; height: 64px; background: #DEF7EC; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px; color: #046C4E;
+}
+.cta-close-btn {
+  padding: 12px 24px; background: #F1F5F9; color: var(--text-main);
+  font-size: 15px; font-weight: 700; border-radius: 100px;
+  border: none; cursor: pointer; transition: background 0.2s;
+}
+.cta-close-btn:hover { background: #E2E8F0; }
+
 /* ── RESPONSIVE ───────────────────────────────────── */
 @media (max-width: 1024px) {
   .tools-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .tools-header { text-align: center; margin: 0 auto 48px; }
+  .cta-banner { text-align: center; padding: 64px 32px; }
+  .cta-subhead { margin: 0 auto 48px; }
+  .cta-actions { justify-content: center; }
 }
 @media (max-width: 640px) {
   .tools-section { padding: 80px 0 60px; }
@@ -225,6 +317,9 @@ const css = `
   .cta-actions { flex-direction: column; width: 100%; }
   .cta-btn { width: 100%; }
 }
+
+@keyframes fadeIn { to { opacity: 1; } }
+@keyframes slideUpModal { to { transform: translateY(0); } }
 `;
 
 /* ── Icons ────────────────────────────────────────── */
@@ -268,15 +363,97 @@ function useReveal(threshold = 0.1) {
   return { ref, visible };
 }
 
+/* ─── Popup Form Modal ───────────────────────────────────── */
+function FormModal({ onClose }: { onClose: () => void }) {
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [onClose]);
+
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Simulate API Call
+    setIsSubmitted(true);
+  };
+
+  return (
+    <div className="cta-overlay" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
+      <div className="cta-modal">
+        <button className="cta-modal-close" onClick={onClose}>
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        {!isSubmitted ? (
+          <div>
+            <h2 className="cta-modal-title">Start Your Journey</h2>
+            <p className="cta-modal-sub">
+              Fill out the form below and our admissions team will get in touch with you shortly.
+            </p>
+
+            <form onSubmit={handleFormSubmit}>
+              <div className="cta-form-group">
+                <label className="cta-label">Full Name</label>
+                <input type="text" className="cta-input" required placeholder="John Doe" />
+              </div>
+              
+              <div className="cta-form-group">
+                <label className="cta-label">Email Address</label>
+                <input type="email" className="cta-input" required placeholder="john@example.com" />
+              </div>
+
+              <div className="cta-form-group">
+                <label className="cta-label">Program of Interest</label>
+                <select className="cta-input" required>
+                  <option value="">Select a program...</option>
+                  <option value="marketing">Digital Marketing</option>
+                  <option value="leadership">Business Leadership</option>
+                  <option value="creative">Creative Strategy</option>
+                </select>
+              </div>
+
+              <button type="submit" className="cta-submit-btn">
+                Submit Enquiry
+              </button>
+            </form>
+          </div>
+        ) : (
+          <div className="cta-success-box">
+            <div className="cta-success-icon">
+              <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <h2 className="cta-modal-title">Application Received!</h2>
+            <p className="cta-modal-sub" style={{ marginBottom: '24px' }}>
+              Thank you for your interest. Our admissions team will get back to you soon.
+            </p>
+            <button onClick={onClose} className="cta-close-btn">
+              Close Window
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 /* ── Component ────────────────────────────────────── */
 export default function ToolsAndCTA() {
   const { ref: headerRef, visible: headerVisible } = useReveal();
   const { ref: gridRef, visible: gridVisible } = useReveal();
   const { ref: ctaRef, visible: ctaVisible } = useReveal();
+  const [modalOpen, setModalOpen] = useState(false);
 
   return (
     <>
       <style>{css}</style>
+      
+      {modalOpen && <FormModal onClose={() => setModalOpen(false)} />}
       
       {/* ── TOOLS SECTION ── */}
       <section className="tools-section" id="tools">
@@ -322,9 +499,15 @@ export default function ToolsAndCTA() {
             </p>
 
             <div className="cta-actions">
-              <button className="cta-btn cta-btn-primary">Apply Now</button>
-              <button className="cta-btn cta-btn-secondary">Explore Programs</button>
-              <button className="cta-btn cta-btn-tertiary">Talk to an Advisor</button>
+              <button className="cta-btn cta-btn-primary" onClick={() => setModalOpen(true)}>
+                Apply Now
+              </button>
+              <button className="cta-btn cta-btn-secondary" onClick={() => setModalOpen(true)}>
+                Explore Programs
+              </button>
+              <button className="cta-btn cta-btn-tertiary">
+                Talk to an Advisor
+              </button>
             </div>
           </div>
         </div>

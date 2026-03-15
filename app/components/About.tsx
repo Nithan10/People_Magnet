@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 
 const css = `
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -48,6 +48,8 @@ const css = `
   grid-template-columns: 1fr 1fr;
   gap: 80px;
   margin-bottom: 96px;
+  align-items: flex-start;
+  text-align: left;
 }
 
 .ab-eyebrow {
@@ -61,11 +63,11 @@ const css = `
 }
 
 .ab-headline {
-  font-family: 'Fraunces', serif;
   font-size: clamp(32px, 4vw, 56px);
-  font-weight: 400;
+  font-weight: 800; /* Increased weight for sans-serif */
   line-height: 1.1;
   margin-bottom: 24px;
+  letter-spacing: -0.03em;
 }
 .ab-headline em { font-style: italic; color: var(--brand); }
 
@@ -124,6 +126,7 @@ const css = `
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
   margin-bottom: 96px;
+  text-align: left;
 }
 .ab-diff-card {
   background: var(--surface);
@@ -132,16 +135,17 @@ const css = `
   border-radius: 8px;
 }
 .ab-diff-num {
-  font-family: 'Fraunces', serif;
   font-size: 40px; 
+  font-weight: 800;
   color: var(--text-main); 
   line-height: 1;
   margin-bottom: 16px;
+  letter-spacing: -0.02em;
 }
-.ab-diff-num span { font-size: 20px; color: var(--text-muted); }
+.ab-diff-num span { font-size: 20px; color: var(--text-muted); font-weight: 600; }
 .ab-diff-title {
   font-size: 18px; 
-  font-weight: 600; 
+  font-weight: 700; 
   margin-bottom: 12px;
 }
 .ab-diff-body { 
@@ -151,12 +155,15 @@ const css = `
 }
 
 /* ── COMPARE TABLE ────────────────────────────────── */
-.ab-compare-wrap { margin-bottom: 96px; }
+.ab-compare-wrap { 
+  margin-bottom: 96px; 
+}
 .ab-compare-title {
-  font-family: 'Fraunces', serif;
   font-size: 32px; 
+  font-weight: 800;
   margin-bottom: 32px;
-  text-align: center;
+  text-align: left; /* Aligned to left for consistency */
+  letter-spacing: -0.02em;
 }
 .ab-compare-grid {
   display: grid;
@@ -165,6 +172,7 @@ const css = `
   border: 1px solid var(--border);
   border-radius: 8px;
   overflow: hidden;
+  text-align: left;
 }
 .ab-col { padding: 40px; }
 .ab-col-trad { background: #F9FAFB; border-right: 1px solid var(--border); }
@@ -172,7 +180,7 @@ const css = `
 
 .ab-col-header {
   font-size: 20px; 
-  font-weight: 600; 
+  font-weight: 700; 
   margin-bottom: 24px;
   padding-bottom: 16px;
   border-bottom: 1px solid var(--border);
@@ -204,6 +212,7 @@ const css = `
   grid-template-columns: 1fr 1fr;
   gap: 64px; 
   align-items: center;
+  text-align: left;
 }
 .ab-eco-tag {
   font-size: 12px; 
@@ -214,10 +223,11 @@ const css = `
   margin-bottom: 16px;
 }
 .ab-eco-title {
-  font-family: 'Fraunces', serif;
   font-size: 40px; 
+  font-weight: 800;
   line-height: 1.1; 
   margin-bottom: 24px;
+  letter-spacing: -0.02em;
 }
 .ab-eco-title em { font-style: italic; color: #60A5FA; }
 .ab-eco-body {
@@ -247,11 +257,14 @@ const css = `
 
 /* ── RESPONSIVE ───────────────────────────────────── */
 @media (max-width: 1024px) {
-  .ab-top { grid-template-columns: 1fr; gap: 40px; }
-  .ab-diff-strip { grid-template-columns: 1fr; }
+  .ab-top { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+  .ab-top > div { display: flex; flex-direction: column; align-items: center; }
+  .ab-diff-strip { grid-template-columns: 1fr; text-align: center; }
   .ab-compare-grid { grid-template-columns: 1fr; }
+  .ab-compare-title { text-align: center; }
   .ab-col-trad { border-right: none; border-bottom: 1px solid var(--border); }
-  .ab-ecosystem { grid-template-columns: 1fr; padding: 48px 32px; }
+  .ab-ecosystem { grid-template-columns: 1fr; padding: 48px 32px; text-align: center; }
+  .ab-roles-grid { justify-content: center; }
 }
 `;
 
